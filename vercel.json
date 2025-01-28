@@ -1,16 +1,14 @@
-// vercel.json
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "src/pages/api/**/*.ts",
-      "use": "@vercel/node"
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "@vercel/node"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/src/pages/api/$1",
+      "dest": "/api/$1",
       "headers": {
         "Access-Control-Allow-Origin": "https://*.gohighlevel.com",
         "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
@@ -19,8 +17,8 @@
     }
   ],
   "env": {
-    "INSTABRAIN_USER_ID": "@instabrain_user_id",
-    "INSTABRAIN_ACCESS_TOKEN": "@instabrain_access_token",
-    "OPENAI_API_KEY": "@openai_api_key"
+    "INSTABRAIN_USER_ID": "instabrain_user_id",
+    "INSTABRAIN_ACCESS_TOKEN": "instabrain_access_token",
+    "OPENAI_API_KEY": "openai_api_key"
   }
 }
