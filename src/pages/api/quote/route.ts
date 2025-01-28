@@ -1,6 +1,7 @@
 // src/pages/api/quote/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { InstaBrainAPI } from '@/lib/instabrain/api';
+import { InstaBrainAPI } from '../../../lib/instabrain/api';  // Changed from @/lib/instabrain/api
+const instaBrainAPI = new InstaBrainAPI();
 import { QuoteValidator } from '@/lib/instabrain/validators';
 
 const instaBrainAPI = new InstaBrainAPI();
