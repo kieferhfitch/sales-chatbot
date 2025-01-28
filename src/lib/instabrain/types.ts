@@ -149,11 +149,7 @@ export class InstaBrainAPI {
   }
 
   public async startApplication(
-    quoteResponseId: string,
-    firstName?: string,
-    lastName?: string,
-    email?: string,
-    phoneNumber?: string
+    quoteResponseId: string
   ): Promise<{
     agentLink: string;
     eAppAgentLink: string;
@@ -165,11 +161,7 @@ export class InstaBrainAPI {
       const response = await this.axiosInstance.post(
         '/thirdpartyibtermstartapp/start-application',
         {
-          quoteResponseId,
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
+          quoteResponseId
         }
       );
 
