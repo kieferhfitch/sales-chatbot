@@ -1,0 +1,456 @@
+<!-- Complete GHL Integration Code -->
+<style>
+/* Layout for chat container and quote panel */
+.chat-and-quote-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.consultation-container {
+    flex: 1;
+    min-width: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 2rem);
+    border: 1px solid #e2e8f0;
+    font-family: "Inter", sans-serif;
+}
+
+.consultation-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fff;
+    border-radius: 8px 8px 0 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-text h2 {
+    font-size: 1.25rem;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+}
+
+.header-text p {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.conversation-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    background: #ffffff;
+    scroll-behavior: smooth;
+}
+
+.message {
+    margin-bottom: 1.5rem;
+    max-width: 90%;
+}
+
+.bot-message {
+    margin-right: auto;
+}
+
+.user-message {
+    margin-left: auto;
+}
+
+.message-content {
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    line-height: 1.5;
+    font-size: 0.9375rem;
+}
+
+.bot-message .message-content {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+}
+
+.user-message .message-content {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+}
+
+.quote-panel {
+    width: 300px;
+    height: fit-content;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    position: sticky;
+    top: 2rem;
+}
+
+.quote-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+}
+
+.quote-item {
+    margin-bottom: 1.5rem;
+}
+
+.quote-item-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.quote-item-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #0f172a;
+}
+
+.apply-button {
+    width: 100%;
+    background: #000068;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: none;
+}
+
+.apply-button:hover {
+    background: #000050;
+}
+
+.input-section {
+    padding: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.input-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.input-container input[type="text"] {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+}
+
+.input-container button {
+    background: #000068;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.875rem 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background: #64748b;
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+    opacity: 0.4;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1024px) {
+    .chat-and-quote-container {
+        flex-direction: column;
+    }
+    
+    .quote-panel {
+        width: 100%;
+        position: static;
+    }
+    
+    .consultation-container {
+        height: 70vh;
+    }
+}
+
+@media (max-width: 640px) {
+    .chat-and-quote-container {
+        padding: 0.5rem;
+    }
+    
+    .message {
+        max-width: 95%;
+    }
+}
+</style>
+
+<div class="chat-and-quote-container">
+    <div class="consultation-container">
+        <div class="consultation-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h2>Life Insurance Advisor</h2>
+                    <p>Let's find the right coverage for your needs</p>
+                </div>
+            </div>
+        </div>
+        <div class="conversation-area" id="conversation">
+            <!-- Initial message will be added by JavaScript -->
+        </div>
+        <div class="input-section">
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Type your message here..." autocomplete="off">
+                <button id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quote-panel">
+        <div class="quote-header">Your Coverage Quote</div>
+        <div class="quote-item">
+            <div class="quote-item-label">Coverage Amount</div>
+            <div class="quote-item-value" id="coverageAmount">-</div>
+        </div>
+        <div class="quote-item">
+            <div class="quote-item-label">Term Length</div>
+            <div class="quote-item-value" id="termLength">-</div>
+        </div>
+        <div class="quote-item">
+            <div class="quote-item-label">Monthly Premium</div>
+            <div class="quote-item-value" id="monthlyPremium">-</div>
+        </div>
+        <div id="ridersList"></div>
+        <button class="apply-button" id="applyButton">Start Application</button>
+    </div>
+</div>
+
+<script>
+// Configuration
+const API_BASE_URL = 'YOUR_VERCEL_DEPLOYMENT_URL';
+const API_ENDPOINTS = {
+    chat: `${API_BASE_URL}/api/chat`,
+    quote: `${API_BASE_URL}/api/quote`,
+    application: `${API_BASE_URL}/api/application`
+};
+
+// State management
+let conversationContext = {
+    quoteParams: {},
+    stage: 'initial'
+};
+let currentQuote = null;
+
+// Initialize conversation
+window.addEventListener('DOMContentLoaded', () => {
+    addMessage("Hi! I'm your life insurance assistant. I'll help you find the right coverage in just a few minutes. To start, could you tell me your age?", false);
+});
+
+// Helper functions
+function addMessage(content, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    contentDiv.textContent = content;
+    
+    messageDiv.appendChild(contentDiv);
+    document.getElementById('conversation').appendChild(messageDiv);
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    const conversation = document.getElementById('conversation');
+    conversation.scrollTop = conversation.scrollHeight;
+}
+
+function showTypingIndicator() {
+    const indicator = document.createElement('div');
+    indicator.className = 'typing-indicator bot-message';
+    indicator.id = 'typingIndicator';
+    indicator.innerHTML = `
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+    `;
+    document.getElementById('conversation').appendChild(indicator);
+    scrollToBottom();
+    return indicator;
+}
+
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(amount);
+}
+
+function updateQuoteDisplay(quote) {
+    if (!quote?.selectedQuote) return;
+
+    const { selectedQuote } = quote;
+    
+    document.getElementById('coverageAmount').textContent = 
+        formatCurrency(selectedQuote.faceAmount);
+    document.getElementById('termLength').textContent = 
+        `${selectedQuote.benefitPeriod} Years`;
+    document.getElementById('monthlyPremium').textContent = 
+        formatCurrency(selectedQuote.quoteAmount);
+
+    // Update riders if present
+    const ridersList = document.getElementById('ridersList');
+    ridersList.innerHTML = '';
+    
+    if (selectedQuote.selectedRiders?.length > 0) {
+        selectedQuote.selectedRiders.forEach(rider => {
+            const riderDiv = document.createElement('div');
+            riderDiv.className = 'quote-item';
+            riderDiv.innerHTML = `
+                <div class="quote-item-label">${rider.riderLabel}</div>
+                <div class="quote-item-value">
+                    Coverage: ${formatCurrency(rider.faceAmount)}
+                    <br>
+                    Cost: ${formatCurrency(rider.riderQuoteAmount)}
+                </div>
+            `;
+            ridersList.appendChild(riderDiv);
+        });
+    }
+
+    // Show apply button
+    document.getElementById('applyButton').style.display = 'block';
+}
+
+// API calls
+async function sendChatMessage(message) {
+    try {
+        const response = await fetch(API_ENDPOINTS.chat, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message,
+                context: conversationContext
+            })
+        });
+
+        if (!response.ok) throw new Error('Chat API request failed');
+        
+        const data = await response.json();
+        conversationContext = data.context;
+        
+        if (data.quote) {
+            currentQuote = data.quote;
+            updateQuoteDisplay(data.quote);
+        }
+
+        return data.message;
+    } catch (error) {
+        console.error('Chat error:', error);
+        return 'I apologize, but I encountered an error. Please try again.';
+    }
+}
+
+async function startApplication() {
+    if (!currentQuote?.selectedQuote?.quoteResponseId) return;
+
+    try {
+        const response = await fetch(API_ENDPOINTS.application, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                quoteResponseId: currentQuote.selectedQuote.quoteResponseId
+            })
+        });
+
+        if (!response.ok) throw new Error('Application API request failed');
+        
+        const data = await response.json();
+        if (data.success && data.data.applicationLinks.applicantLink) {
+            window.open(data.data.applicationLinks.applicantLink, '_blank');
+        }
+    } catch (error) {
+        console.error('Application error:', error);
+        addMessage('Sorry, there was an error starting your application. Please try again.', false);
+    }
+}
+
+// Event listeners
+document.getElementById('sendButton').addEventListener('click', async () => {
+    const userInput = document.getElementById('userInput');
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    // Disable input while processing
+    userInput.disabled = true;
+    document.getElementById('sendButton').disabled = true;
+
+    // Add user message
+    addMessage(message, true);
+    userInput.value = '';
+
+    // Show typing indicator
+    const typingIndicator = showTypingIndicator();
+
+    // Get bot response
+    const response = await sendChatMessage(message);
+
+    // Remove typing indicator and add bot response
+    typingIndicator.remove();
+    addMessage(response, false);
+
+    // Re-enable input
+    userInput.disabled = false;
+    document.getElementById('sendButton').disabled = false;
+    userInput.focus();
+});
+
+document.getElementById('userInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById('sendButton').click();
+    }
+});
+
+document.getElementById('applyButton').addEventListener('click', startApplication);
+
+// Focus input on load
+document.getElementById('userInput').focus();
+</script>
