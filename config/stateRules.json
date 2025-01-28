@@ -1,6 +1,7 @@
 // config/stateRules.json
 {
-  "excluded_states": ["WY", "NY"],
+  "available_states": ["OK"],
+  "excluded_states": ["NY", "WY"],
   "rider_availability": {
     "AL": {
       "adbRider": true,
