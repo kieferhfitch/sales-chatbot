@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { InstaBrainAPI } from '@/lib/instabrain/api';
+import { InstaBrainAPI } from '../../../lib/instabrain/api';  // Changed from @/lib/instabrain/api
+const instaBrainAPI = new InstaBrainAPI();
 import { QuoteValidator } from '@/lib/instabrain/validators';
 import { InsuranceCalculator } from '@/lib/utils/calculations';
 
