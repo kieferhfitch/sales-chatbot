@@ -1,6 +1,6 @@
 // src/pages/api/application/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { InstaBrainAPI } from '@/lib/instabrain/api';
+import { InstaBrainAPI } from '../../../lib/instabrain/api';  // Changed from @/lib/instabrain/api
 
 const instaBrainAPI = new InstaBrainAPI();
 
