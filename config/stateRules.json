@@ -1,0 +1,198 @@
+// config/stateRules.json
+{
+  "excluded_states": ["WY", "NY"],
+  "rider_availability": {
+    "AL": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "AK": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "AZ": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "AR": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "CA": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "CO": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "CT": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "DE": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "FL": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "GA": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "HI": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "ID": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "IL": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "IN": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "IA": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "KS": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "KY": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "LA": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "ME": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "MD": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "MA": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "MI": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "MN": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "MS": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "MO": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "MT": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "NE": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "NV": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "NH": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "NJ": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "NM": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "NC": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "ND": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "OH": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "OK": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "OR": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "PA": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "RI": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "SC": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "SD": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "TN": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "TX": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "UT": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "VT": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "VA": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "WA": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "WV": {
+      "adbRider": true,
+      "childRider": true
+    },
+    "WI": {
+      "adbRider": true,
+      "childRider": true
+    }
+  }
+}
