@@ -16,16 +16,12 @@ export interface QuoteRequest {
   faceAmount: number;
   benefitPeriod: number;
   flagTobaccoUse: boolean;
-  gender: 1 | 2 | 3; // 1 = Male, 2 = Female, 3 = Unknown
+  gender: 1 | 2; // 1 = Male, 2 = Female
   stateCode: string;
   zipCode?: string | null;
   rateClass?: string;
   healthClass?: string;
-  height?: {
-    feet: number;
-    inches: number;
-  };
-  weightInLbs?: number;
+  healthClass?: 'Excellent' | 'Great' | 'Good' | 'Average';
   age?: number;
   dateOfBirth?: string;
   riders?: Array<{
