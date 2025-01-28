@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
 
   // Verify origin
   const origin = request.headers.get('origin')
-  if (!origin?.endsWith('https://pathwayinsure.com')) {
+  if (origin !== 'https://pathwayinsure.com') {
     return new NextResponse(null, {
       status: 403,
       statusText: 'Forbidden',
