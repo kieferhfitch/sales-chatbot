@@ -1,15 +1,14 @@
-// src/pages/api/quote/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { InstaBrainAPI } from '../../../lib/instabrain/api';  // Changed from @/lib/instabrain/api
-const instaBrainAPI = new InstaBrainAPI();
-import { QuoteValidator } from '@/lib/instabrain/validators';
+import { InstaBrainAPI } from '../../../lib/instabrain/api';
+import { QuoteValidator } from '../../../lib/instabrain/validators';
 
-const instaBrainAPI = new InstaBrainAPI();
+// Create a new instance with a unique name
+const instaBrainQuoteClient = new InstaBrainAPI();
 
 export async function POST(req: NextRequest) {
   try {
     const quoteParams = await req.json();
-
+    
     // Validate quote parameters
     const validation = QuoteValidator.validateQuoteRequest(quoteParams);
     
@@ -21,7 +20,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Get quote from InstaBrain
-    const quoteResponse = await instaBrainAPI.getQuote({
+    const quoteResponse = await instaBrainQuoteClient.getQuote({
       ...quoteParams,
       paymentFreq: 12  // Default to monthly payments
     });
@@ -46,7 +45,6 @@ export async function POST(req: NextRequest) {
         }
       }
     });
-
   } catch (error) {
     console.error('Quote Error:', error);
     
