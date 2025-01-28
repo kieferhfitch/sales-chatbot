@@ -1,38 +1,41 @@
-// types/chat.ts
-export interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
+export interface QuoteRequest {
+  faceAmount: number;
+  benefitPeriod: number;
+  flagTobaccoUse: boolean;
+  gender: 1 | 2 | 3;  // 1 = Male, 2 = Female, 3 = Unknown
+  stateCode: string;
+  healthClass: 'Excellent' | 'Great' | 'Good' | 'Average';
+  age: number;
+  riders?: Array<{
+    rider: 'ADB Rider' | 'Dependent Child Rider';
+    riderFaceAmount: number;
+  }>;
+  paymentFreq: 1 | 12; // 1 = Annual, 12 = Monthly
 }
 
-export interface ChatContext {
-  quoteParams: {
-    age?: number;
-    gender?: 1 | 2;
-    stateCode?: string;
-    flagTobaccoUse?: boolean;
-    healthClass?: 'Excellent' | 'Great' | 'Good' | 'Average';
-    faceAmount?: number;
-    benefitPeriod?: number;
-    riders?: Array<{
-      rider: string;
-      riderFaceAmount: number;
-    }>;
+export interface QuoteResponse {
+  flagStatus: boolean;
+  value: {
+    productName: string;
+    selectedQuote: {
+      quoteResponseId: string;
+      quoteAmount: number;
+      premiumSaveWhenSelectingAnnual: number;
+      faceAmount: number;
+      benefitPeriod: number;
+      paymentFrequency: string;
+      selectedRiders?: Array<{
+        riderValue: string;
+        riderLabel: string;
+        riderQuoteAmount: number;
+        faceAmount: number;
+      }>;
+    };
   };
-  stage: 'initial' | 'gathering_info' | 'quote_presented' | 'adjusting_quote';
-  userInput?: {
-    income?: number;
-    totalDebt?: number;
-    dependents?: Array<{ age: number }>;
-  };
+  error?: string | null;
 }
 
-export interface ChatRequest {
-  message: string;
-  context?: ChatContext;
-}
-
-export interface ChatResponse {
-  message: string;
-  context: ChatContext;
-  quote?: QuoteResponse;
+export interface QuoteValidation {
+  isValid: boolean;
+  errors: string[];
 }
