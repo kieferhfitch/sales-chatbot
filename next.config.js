@@ -1,10 +1,9 @@
-// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   async headers() {
     return [
       {
-        // Enable CORS for Go High Level
         source: '/api/:path*',
         headers: [
           {
@@ -13,7 +12,7 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Methods',
-            value: 'GET,POST,OPTIONS'
+            value: 'POST,OPTIONS'
           },
           {
             key: 'Access-Control-Allow-Headers',
@@ -23,10 +22,19 @@ const nextConfig = {
       }
     ]
   },
-  // Disable unnecessary features
-  reactStrictMode: true,
-  images: {
-    unoptimized: true
+  // Optimize for API routes
+  experimental: {
+    serverActions: true
+  },
+  // Configure custom webpack for API handling
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals.push({
+        bufferutil: 'bufferutil',
+        'utf-8-validate': 'utf-8-validate',
+      })
+    }
+    return config
   }
 }
 
