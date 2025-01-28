@@ -1,24 +1,33 @@
 {
   "version": 2,
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "@vercel/node"
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1",
-      "headers": {
-        "Access-Control-Allow-Origin": "https://*.gohighlevel.com",
-        "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization"
-      }
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://*.gohighlevel.com"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,POST,OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
     }
   ],
   "env": {
-    "INSTABRAIN_USER_ID": "instabrain_user_id",
-    "INSTABRAIN_ACCESS_TOKEN": "instabrain_access_token",
-    "OPENAI_API_KEY": "openai_api_key"
+    "INSTABRAIN_USER_ID": "@instabrain_user_id",
+    "INSTABRAIN_ACCESS_TOKEN": "@instabrain_access_token",
+    "OPENAI_API_KEY": "@openai_api_key"
   }
 }
