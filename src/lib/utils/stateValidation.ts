@@ -5,19 +5,16 @@ interface RiderAvailability {
 }
 
 export class StateValidator {
-  private static readonly EXCLUDED_STATES = ['WY', 'NY'];
+  private static readonly stateRules = require('../../../config/stateRules.json');
   private static readonly STATE_RIDER_RULES: Record<string, RiderAvailability> = {
-    // Example rules - update based on actual state rules
-    'AZ': { adbRider: true, childRider: true },
-    'CA': { adbRider: true, childRider: false },
-    // Add more states as needed
+    'OK': { adbRider: true, childRider: true }
   };
 
   /**
    * Check if insurance is available in the state
    */
   static isStateAvailable(stateCode: string): boolean {
-    return !this.EXCLUDED_STATES.includes(stateCode.toUpperCase());
+    return this.stateRules.available_states.includes(stateCode.toUpperCase());
   }
 
   /**
@@ -47,23 +44,17 @@ export class StateValidator {
   }
 
   /**
-   * Validate state code format
+   * Validate state code format and availability
    */
   static isValidStateCode(stateCode: string): boolean {
-    return /^[A-Z]{2}$/.test(stateCode.toUpperCase());
+    const formattedCode = stateCode.toUpperCase();
+    return /^[A-Z]{2}$/.test(formattedCode) && this.isStateAvailable(formattedCode);
   }
 
   /**
-   * Get state-specific coverage limits
+   * Get error message for unavailable state
    */
-  static getStateCoverageLimits(stateCode: string): {
-    min: number;
-    max: number;
-  } {
-    // Example - update with actual state-specific limits if any
-    return {
-      min: 50000,
-      max: 1000000
-    };
+  static getUnavailableStateMessage(stateCode: string): string {
+    return `We are currently only available in Oklahoma. ${stateCode} is not yet available, but we're working on expanding to more states soon!`;
   }
 }
