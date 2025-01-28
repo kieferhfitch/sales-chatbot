@@ -1,25 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "next build",
-  "builds": [
-    {
-      "src": "src/pages/api/**/*.ts",
-      "use": "@vercel/node@2.8.0"
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/src/pages/api/$1",
       "headers": {
         "Access-Control-Allow-Origin": "https://*.gohighlevel.com",
         "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization"
       }
     }
-  ],
-  "env": {
-    "INSTABRAIN_USER_ID": "@instabrain_user_id",
-    "INSTABRAIN_ACCESS_TOKEN": "@instabrain_access_token"
-  }
+  ]
 }
