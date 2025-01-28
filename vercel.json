@@ -1,33 +1,56 @@
 {
   "version": 2,
-  "rewrites": [
+  "buildCommand": "next build",
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "src": "next.config.js",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "public/**/*",
+      "use": "@vercel/static"
     }
   ],
-  "headers": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://*.gohighlevel.com"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST,OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization"
-        }
-      ]
+      "src": "/api/auth",
+      "dest": "/api/auth.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://*.gohighlevel.com",
+        "Access-Control-Allow-Methods": "POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "src": "/api/quote",
+      "dest": "/api/quote.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://*.gohighlevel.com",
+        "Access-Control-Allow-Methods": "POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "src": "/api/application",
+      "dest": "/api/application.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://*.gohighlevel.com",
+        "Access-Control-Allow-Methods": "POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
     }
   ],
   "env": {
     "INSTABRAIN_USER_ID": "@instabrain_user_id",
     "INSTABRAIN_ACCESS_TOKEN": "@instabrain_access_token",
-    "OPENAI_API_KEY": "@openai_api_key"
+    "INSTABRAIN_API_URL": "https://api.instabrainsandbox.io/api",
+    "NODE_ENV": "production"
+  },
+  "regions": ["iad1"],
+  "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
   }
 }
