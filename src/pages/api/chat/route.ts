@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { InstaBrainAPI } from '../../../lib/instabrain/api';  // Changed from @/lib/instabrain/api
-const instaBrainAPI = new InstaBrainAPI();
-import { QuoteValidator } from '@/lib/instabrain/validators';
-import { InsuranceCalculator } from '@/lib/utils/calculations';
+import { InstaBrainAPI } from '../../../lib/instabrain/api';
+import { QuoteValidator } from '../../../lib/instabrain/validators';
+import { InsuranceCalculator } from '../../../lib/utils/calculations';
 
 const openai = new OpenAI();
-const instaBrainAPI = new InstaBrainAPI();
+const instaBrainApiClient = new InstaBrainAPI();
 
 export interface ConversationContext {
   quoteParams: {
@@ -224,7 +223,7 @@ export async function POST(req: NextRequest) {
           const validation = QuoteValidator.validateQuoteRequest(functionArgs.quoteParams);
           
           if (validation.isValid) {
-            const quoteResponse = await instaBrainAPI.getQuote(functionArgs.quoteParams);
+            const quoteResponse = await instaBrainApiClient.getQuote(functionArgs.quoteParams);
             quote = quoteResponse.value.selectedQuote;
             
             newContext = {
