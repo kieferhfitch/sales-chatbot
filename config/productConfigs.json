@@ -1,0 +1,74 @@
+// config/productConfigs.json
+{
+  "age_limits": {
+    "minimum": 18,
+    "maximum": 60
+  },
+  "coverage_limits": {
+    "default": {
+      "minimum": 50000,
+      "maximum": 1000000
+    },
+    "age_specific": {
+      "56": {
+        "minimum": 50000,
+        "maximum": 900000
+      },
+      "57": {
+        "minimum": 50000,
+        "maximum": 800000
+      },
+      "58": {
+        "minimum": 50000,
+        "maximum": 700000
+      },
+      "59": {
+        "minimum": 50000,
+        "maximum": 600000
+      },
+      "60": {
+        "minimum": 50000,
+        "maximum": 500000
+      }
+    }
+  },
+  "term_lengths": {
+    "up_to_45": {
+      "options": [10, 20, 30],
+      "tobacco_options": [10, 20, 30]
+    },
+    "45_to_50": {
+      "options": [10, 20, 30],
+      "tobacco_options": [10, 20]
+    },
+    "51_to_60": {
+      "options": [10, 20],
+      "tobacco_options": [10, 20]
+    }
+  },
+  "riders": {
+    "ADB Rider": {
+      "minimum": 25000,
+      "maximum": 250000,
+      "min_age": 20,
+      "max_age": 60
+    },
+    "Dependent Child Rider": {
+      "minimum": 5000,
+      "maximum": 25000,
+      "min_age": 20,
+      "max_age": 60,
+      "child_age_limit": 18
+    }
+  },
+  "health_classes": [
+    "Excellent",
+    "Great",
+    "Good",
+    "Average"
+  ],
+  "payment_frequencies": {
+    "1": "Annual",
+    "12": "Monthly"
+  }
+}
